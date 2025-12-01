@@ -110,34 +110,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // ===================================
     // SCROLL REVEAL ANIMATION
     // ===================================
+    // ===================================
+    // SCROLL REVEAL ANIMATION
+    // ===================================
     const revealElements = document.querySelectorAll('.reveal');
 
-    const revealOnScroll = () => {
-        const windowHeight = window.innerHeight;
-        const revealPoint = 150;
-
-        revealElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-
-            if (elementTop < windowHeight - revealPoint) {
-                element.classList.add('active');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Only animate once
             }
         });
-    };
+    }, {
+        root: null,
+        threshold: 0.15, // Trigger when 15% of element is visible
+        rootMargin: "0px 0px -50px 0px" // Offset slightly from bottom
+    });
 
-    // Initial check
-    revealOnScroll();
-
-    // Throttled scroll event for performance
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        if (scrollTimeout) {
-            window.cancelAnimationFrame(scrollTimeout);
-        }
-
-        scrollTimeout = window.requestAnimationFrame(() => {
-            revealOnScroll();
-        });
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
     });
 
     // ===================================
