@@ -311,6 +311,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // ===================================
     // PARALLAX EFFECT FOR HERO
     // ===================================
+    // Disabled to prevent interference with hero content visibility
+    /*
     const hero = document.querySelector('.hero');
 
     window.addEventListener('scroll', () => {
@@ -321,6 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
             hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
         }
     });
+    */
 
     // ===================================
     // LOADING ANIMATION
